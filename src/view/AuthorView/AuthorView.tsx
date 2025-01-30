@@ -1,8 +1,9 @@
 import React from "react";
-import { AuthorForm } from "../components/author/AuthorForm/AuthorForm";
-import { AuthorList } from "../components/author/AuthorList";
-import { Modal } from "../components/ui/Modal/Modal";
-import { useAuthorViewModel } from "../viewmodels/AuthorViewModel";
+import { AuthorForm } from "../../components/author/AuthorForm/AuthorForm";
+import { AuthorList } from "../../components/author/AuthorList/AuthorList";
+import { Modal } from "../../components/ui/Modal/Modal";
+import { useAuthorViewModel } from "../../viewmodels/AuthorViewModel";
+import styles from "./AuthorView.module.css";
 
 const AuthorView: React.FC = () => {
   const {
@@ -18,7 +19,7 @@ const AuthorView: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className={styles.autorView}>
       <h1>Autores</h1>
       <Modal
         title="Adicionar Autor"

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Author } from "../../models/Author";
-import { TableBase } from "../../components/ui/TableBase/TableBase";
-import Alert from "../ui/Alert/Alert";
+import { Author } from "../../../models/Author";
+import { TableBase } from "../../ui/TableBase/TableBase";
+import Alert from "../../ui/Alert/Alert";
 
 interface AuthorListProps {
   authors: Author[];
