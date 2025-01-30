@@ -1,0 +1,26 @@
+.alert {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.info {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.error {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.icon {
+  margin-right: 10px;
+}
