@@ -9,8 +9,8 @@ const AuthorView: React.FC = () => {
     addAuthor,
     authors,
     removeAuthor,
-    openModalAuthor,
-    handleOpenModalAuthor,
+    openModalAddAuthor,
+    handleOpenModalAddAuthor,
   } = useAuthorViewModel();
 
   const handleAddAuthor = (data: { name: string; email?: string }) => {
@@ -22,8 +22,8 @@ const AuthorView: React.FC = () => {
       <h1>Autores</h1>
       <Modal
         title="Adicionar Autor"
-        isOpen={openModalAuthor}
-        onOpenChange={() => handleOpenModalAuthor(!openModalAuthor)}
+        isOpen={openModalAddAuthor}
+        onOpenChange={() => handleOpenModalAddAuthor(!openModalAddAuthor)}
         trigger={<button>Adicionar Autor</button>}
       >
         <AuthorForm onSubmit={handleAddAuthor} />

@@ -1,21 +1,33 @@
-import React from "react";
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { InfoCircledIcon } from "@radix-ui/react-icons";
+import React, { useEffect } from "react";
 import styles from "./Alert.module.css";
 
 interface AlertProps {
-  type?: "info" | "error" | "success";
+  type: "info" | "error" | "success";
   message: string;
+  onClose: () => void;
+  duration?: number;
 }
 
-const Alert: React.FC<AlertProps> = ({ type = "info", message }) => {
-  const alertClass = `${styles.alert} ${styles[type]}`;
+const Alert: React.FC<AlertProps> = ({
+  type,
+  message,
+  onClose,
+  duration = 3000,
+}) => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onClose();
+    }, duration);
+
+    return () => clearTimeout(timer);
+  }, [onClose, duration]);
 
   return (
-    <div className={alertClass} role="alert">
-      <InfoCircledIcon className={styles.icon} />
-      <VisuallyHidden>{type}: </VisuallyHidden>
+    <div className={`${styles.alert} ${styles[type]}`}>
       {message}
+      <button onClick={onClose} className={styles.closeButton}>
+        &times;
+      </button>
     </div>
   );
 };

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Author } from "../../models/Author";
 import { TableBase } from "../../components/ui/TableBase/TableBase";
+import Alert from "../ui/Alert/Alert";
 
 interface AuthorListProps {
   authors: Author[];
@@ -15,5 +16,29 @@ export const AuthorList: React.FC<AuthorListProps> = ({
     { header: "Nome", accessor: (row: Author) => row.name },
     { header: "Email", accessor: (row: Author) => row.email },
   ];
-  return <TableBase data={authors} columns={columns} onDelete={onDelete} />;
+  const [alert, setAlert] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
+
+  const handleDelete = (id: number) => {
+    try {
+      onDelete(id);
+      setAlert({ type: "success", message: "Autor excluído com sucesso!" });
+    } catch (error) {
+      setAlert({ type: "error", message: "Erro ao excluir autor." });
+    }
+  };
+  return (
+    <>
+      {alert && (
+        <Alert
+          type={alert.type}
+          message={alert.message}
+          onClose={() => setAlert(null)}
+        />
+      )}{" "}
+      <TableBase data={authors} columns={columns} onDelete={handleDelete} />
+    </>
+  );
 };

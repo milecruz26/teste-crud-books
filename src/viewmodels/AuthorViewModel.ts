@@ -8,7 +8,8 @@ import {
 
 export const useAuthorViewModel = () => {
   const [authors, setAuthors] = useState<Author[]>(getAuthors());
-  const [openModalAuthor, setOpenModalAuthor] = useState(false);
+  const [openModalAddAuthor, setOpenModalAddAuthor] = useState(false);
+  const [openModalDeleteAuthor, setOpenModalDeleteAuthor] = useState(false);
 
   const addAuthor = (author: Author) => {
     saveAuthor(author);
@@ -19,15 +20,21 @@ export const useAuthorViewModel = () => {
     deleteAuthor(id.toString());
     setAuthors(authors.filter((author) => author.id !== id));
   };
-  const handleOpenModalAuthor = (openModalAuthor: boolean) => {
-    setOpenModalAuthor(openModalAuthor);
+  const handleOpenModalAddAuthor = (openModalAddAuthor: boolean) => {
+    setOpenModalAddAuthor(openModalAddAuthor);
+  };
+
+  const handleOpenModalDeleteAuthor = (openModalDeleteAuthor: boolean) => {
+    setOpenModalDeleteAuthor(openModalDeleteAuthor);
   };
 
   return {
     authors,
     addAuthor,
     removeAuthor,
-    openModalAuthor,
-    handleOpenModalAuthor,
+    openModalAddAuthor,
+    handleOpenModalAddAuthor,
+    openModalDeleteAuthor,
+    handleOpenModalDeleteAuthor,
   };
 };

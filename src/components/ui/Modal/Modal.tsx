@@ -2,6 +2,7 @@ import React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import styles from "./Modal.module.css";
+import Button from "../Button/Button";
 
 type ModalProps = {
   title: string;
@@ -20,7 +21,9 @@ export const Modal = ({
 }: ModalProps) => {
   return (
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
-      <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
+      <Dialog.Trigger asChild>
+        <Button>{trigger}</Button>
+      </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className={styles.overlay} />
         <Dialog.Content className={styles.content}>
