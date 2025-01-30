@@ -17,3 +17,7 @@ export const deleteAuthor = (id: string): void => {
   const authors = getAuthors().filter((author) => author.id.toString() !== id);
   localStorage.setItem(AUTHOR_KEY, JSON.stringify(authors));
 };
+
+export const getAuthor = (id: number): Author | undefined => {
+  return getAuthors().find((author) => author.id === id);
+};

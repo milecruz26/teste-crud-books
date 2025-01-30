@@ -11,12 +11,14 @@ interface TableBaseProps<T> {
   data: T[];
   columns: Column<T>[];
   onDelete?: (id: number) => void;
+  onAuthorDatails?: (id: number) => void;
 }
 
 export const TableBase = <T extends { id: number }>({
   data,
   columns,
   onDelete,
+  onAuthorDatails,
 }: TableBaseProps<T>) => {
   return (
     <table className={styles.table}>
@@ -25,14 +27,17 @@ export const TableBase = <T extends { id: number }>({
           {columns.map((column, index) => (
             <th key={index}>{column.header}</th>
           ))}
-          {onDelete && <th>Ações</th>}
+          {onDelete && <th className={styles.action}>Ações</th>}
         </tr>
       </thead>
       <tbody>
         {data.map((row) => (
           <tr key={row.id}>
             {columns.map((column, index) => (
-              <td key={index}>
+              <td
+                key={index}
+                onClick={() => onAuthorDatails && onAuthorDatails(row.id)}
+              >
                 {typeof column.accessor === "function"
                   ? column.accessor(row)
                   : (row[column.accessor] as React.ReactNode)}

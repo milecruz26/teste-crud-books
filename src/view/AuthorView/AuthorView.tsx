@@ -12,6 +12,7 @@ const AuthorView: React.FC = () => {
     removeAuthor,
     openModalAddAuthor,
     handleOpenModalAddAuthor,
+    getAuthorById,
   } = useAuthorViewModel();
 
   const handleAddAuthor = (data: { name: string; email?: string }) => {
@@ -29,7 +30,11 @@ const AuthorView: React.FC = () => {
       >
         <AuthorForm onSubmit={handleAddAuthor} />
       </Modal>
-      <AuthorList authors={authors} onDelete={removeAuthor} />
+      <AuthorList
+        authors={authors}
+        onDelete={removeAuthor}
+        onAuthorDatails={getAuthorById}
+      />
     </div>
   );
 };

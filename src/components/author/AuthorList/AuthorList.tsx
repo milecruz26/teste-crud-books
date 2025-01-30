@@ -6,16 +6,15 @@ import Alert from "../../ui/Alert/Alert";
 interface AuthorListProps {
   authors: Author[];
   onDelete: (id: number) => void;
+  onAuthorDatails?: (id: number) => void;
 }
 
 export const AuthorList: React.FC<AuthorListProps> = ({
   authors,
   onDelete,
+  onAuthorDatails,
 }) => {
-  const columns = [
-    { header: "Nome", accessor: (row: Author) => row.name },
-    { header: "Email", accessor: (row: Author) => row.email },
-  ];
+  const columns = [{ header: "Nome", accessor: (row: Author) => row.name }];
   const [alert, setAlert] = useState<{
     type: "success" | "error";
     message: string;
@@ -29,6 +28,13 @@ export const AuthorList: React.FC<AuthorListProps> = ({
       setAlert({ type: "error", message: "Erro ao excluir autor." });
     }
   };
+
+  const handleGetAuthorDetails = (id: number) => {
+    if (onAuthorDatails) {
+      onAuthorDatails(id);
+    }
+  };
+
   return (
     <>
       {alert && (
@@ -37,8 +43,13 @@ export const AuthorList: React.FC<AuthorListProps> = ({
           message={alert.message}
           onClose={() => setAlert(null)}
         />
-      )}{" "}
-      <TableBase data={authors} columns={columns} onDelete={handleDelete} />
+      )}
+      <TableBase
+        data={authors}
+        columns={columns}
+        onDelete={handleDelete}
+        onAuthorDatails={handleGetAuthorDetails}
+      />
     </>
   );
 };

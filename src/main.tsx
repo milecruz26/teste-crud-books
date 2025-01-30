@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./assets/global.css";
 import App from "./App.tsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import AuthorView from "./view/AuthorView.tsx";
+import AuthorView from "./view/AuthorView/AuthorView.tsx";
 import { BookView } from "./view/BookView.tsx";
 
 const router = createBrowserRouter([
