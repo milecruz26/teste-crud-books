@@ -1,15 +1,33 @@
 import React from "react";
-import { useAuthorContext } from "../context/AuthorContext";
-import { AuthorForm } from "../components/author/AuthorForm";
+import { AuthorForm } from "../components/author/AuthorForm/AuthorForm";
 import { AuthorList } from "../components/author/AuthorList";
+import { Modal } from "../components/ui/Modal/Modal";
+import { useAuthorViewModel } from "../viewmodels/AuthorViewModel";
 
 const AuthorView: React.FC = () => {
-  const { authors, addAuthor, removeAuthor } = useAuthorContext();
+  const {
+    addAuthor,
+    authors,
+    removeAuthor,
+    openModalAuthor,
+    handleOpenModalAuthor,
+  } = useAuthorViewModel();
+
+  const handleAddAuthor = (data: { name: string; email?: string }) => {
+    addAuthor({ ...data, id: Date.now(), email: data.email || "" });
+  };
 
   return (
     <div>
       <h1>Autores</h1>
-      <AuthorForm onSubmit={addAuthor} />
+      <Modal
+        title="Adicionar Autor"
+        isOpen={openModalAuthor}
+        onOpenChange={() => handleOpenModalAuthor(!openModalAuthor)}
+        trigger={<button>Adicionar Autor</button>}
+      >
+        <AuthorForm onSubmit={handleAddAuthor} />
+      </Modal>
       <AuthorList authors={authors} onDelete={removeAuthor} />
     </div>
   );
