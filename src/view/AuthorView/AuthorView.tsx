@@ -9,7 +9,12 @@ const AuthorView: React.FC = () => {
   const {
     addAuthor,
     authors,
-    removeAuthor,
+    isConfirmationModalOpen,
+    setIsConfirmationModalOpen,
+    handleDelete,
+    handleConfirmDelete,
+    toast,
+    setToast,
     openModalAddAuthor,
     handleOpenModalAddAuthor,
     getAuthorById,
@@ -32,8 +37,13 @@ const AuthorView: React.FC = () => {
       </Modal>
       <AuthorList
         authors={authors}
-        onDelete={removeAuthor}
-        onAuthorDatails={getAuthorById}
+        onDelete={handleDelete}
+        isConfirmationModalOpen={isConfirmationModalOpen}
+        setIsConfirmationModalOpen={setIsConfirmationModalOpen}
+        onConfirmDelete={handleConfirmDelete}
+        toast={toast}
+        setToast={setToast}
+        onAuthorDetails={getAuthorById}
       />
     </div>
   );

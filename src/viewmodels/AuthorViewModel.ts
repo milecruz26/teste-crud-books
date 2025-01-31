@@ -9,24 +9,49 @@ import {
 
 export const useAuthorViewModel = () => {
   const [authors, setAuthors] = useState<Author[]>(getAuthors());
-  const [author, setAuthor] = useState<Author>();
+  const [authorDetails, setAuthorDetails] = useState<Author | null>(null);
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [openModalAddAuthor, setOpenModalAddAuthor] = useState(false);
   const [openModalDeleteAuthor, setOpenModalDeleteAuthor] = useState(false);
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
+  const [authorToDelete, setAuthorToDelete] = useState<number | null>(null);
+  const [toast, setToast] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
 
   const addAuthor = (author: Author) => {
     saveAuthor(author);
     setAuthors([...authors, author]);
   };
 
-  const removeAuthor = (id: number) => {
-    deleteAuthor(id.toString());
-    setAuthors(authors.filter((author) => author.id !== id));
-  };
-
   const getAuthorById = (id: number) => {
     const author = getAuthor(id);
-    setAuthor(author);
-    console.log(author);
+    if (author) {
+      setAuthorDetails(author);
+      console.log(author);
+    } else {
+      setAuthorDetails(null);
+    }
+    setIsDetailsModalOpen(true);
+  };
+
+  const handleDelete = (id: number) => {
+    setAuthorToDelete(id);
+    setIsConfirmationModalOpen(true);
+  };
+  const handleConfirmDelete = () => {
+    if (authorToDelete) {
+      try {
+        deleteAuthor(authorToDelete.toString());
+        setAuthors(authors.filter((author) => author.id !== authorToDelete));
+        setToast({ type: "success", message: "Autor excluído com sucesso!" });
+      } catch (error) {
+        setToast({ type: "error", message: "Erro ao excluir autor." });
+      }
+      setIsConfirmationModalOpen(false);
+      setAuthorToDelete(null);
+    }
   };
 
   const handleOpenModalAddAuthor = (openModalAddAuthor: boolean) => {
@@ -40,12 +65,19 @@ export const useAuthorViewModel = () => {
   return {
     authors,
     addAuthor,
-    removeAuthor,
     openModalAddAuthor,
     handleOpenModalAddAuthor,
+    handleDelete,
+    handleConfirmDelete,
     openModalDeleteAuthor,
     handleOpenModalDeleteAuthor,
-    author,
+    authorDetails,
     getAuthorById,
+    isDetailsModalOpen,
+    setIsDetailsModalOpen,
+    toast,
+    setToast,
+    isConfirmationModalOpen,
+    setIsConfirmationModalOpen,
   };
 };
