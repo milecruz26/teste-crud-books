@@ -4,6 +4,7 @@ import { AuthorList } from "../../components/author/AuthorList/AuthorList";
 import { Modal } from "../../components/ui/Modal/Modal";
 import { useAuthorViewModel } from "../../viewmodels/AuthorViewModel";
 import styles from "./AuthorView.module.css";
+import AuthorDetails from "../../components/author/AuthorDetails/AuthorDetails";
 
 const AuthorView: React.FC = () => {
   const {
@@ -18,6 +19,9 @@ const AuthorView: React.FC = () => {
     openModalAddAuthor,
     handleOpenModalAddAuthor,
     getAuthorById,
+    authorDetails,
+    isDetailsModalOpen,
+    setIsDetailsModalOpen,
   } = useAuthorViewModel();
 
   const handleAddAuthor = (data: { name: string; email?: string }) => {
@@ -31,6 +35,7 @@ const AuthorView: React.FC = () => {
         title="Adicionar Autor"
         isOpen={openModalAddAuthor}
         onOpenChange={() => handleOpenModalAddAuthor(!openModalAddAuthor)}
+        hasButton={true}
         trigger={<button>Adicionar Autor</button>}
       >
         <AuthorForm onSubmit={handleAddAuthor} />
@@ -45,6 +50,13 @@ const AuthorView: React.FC = () => {
         setToast={setToast}
         onAuthorDetails={getAuthorById}
       />
+      <Modal
+        title="Detalhes do Autor"
+        isOpen={isDetailsModalOpen}
+        onOpenChange={setIsDetailsModalOpen}
+      >
+        {authorDetails && <AuthorDetails author={authorDetails} />}
+      </Modal>
     </div>
   );
 };

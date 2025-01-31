@@ -2,14 +2,14 @@ import React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import styles from "./Modal.module.css";
-import Button from "../Button/Button";
 
 type ModalProps = {
   title: string;
   children: React.ReactNode;
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
-  trigger: React.ReactNode;
+  trigger?: React.ReactNode;
+  hasButton?: boolean;
 };
 
 export const Modal = ({
@@ -18,12 +18,11 @@ export const Modal = ({
   isOpen,
   onOpenChange,
   trigger,
+  hasButton,
 }: ModalProps) => {
   return (
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
-      <Dialog.Trigger asChild>
-        <Button>{trigger}</Button>
-      </Dialog.Trigger>
+      {hasButton && <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>}
       <Dialog.Portal>
         <Dialog.Overlay className={styles.overlay} />
         <Dialog.Content className={styles.content}>
