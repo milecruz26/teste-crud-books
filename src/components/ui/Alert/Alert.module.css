@@ -5,7 +5,7 @@
 }
 
 .content {
-  background-color: rgb(116, 16, 141);
+  background-color: #c79dff;
   border-radius: 6px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: fixed;
@@ -15,6 +15,7 @@
   width: 90%;
   max-width: 400px;
   padding: 20px;
+  color: #000;
 }
 
 .title {
