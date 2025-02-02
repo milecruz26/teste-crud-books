@@ -15,6 +15,8 @@ export const useBookViewModel = () => {
   const [openModalDeleteBook, setOpenModalDeleteBook] = useState(false);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const [bookToDelete, setBookToDelete] = useState<number | null>(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [bookToEdit, setBookToEdit] = useState<Book | null>(null);
   const [toast, setToast] = useState<{
     type: "success" | "error";
     message: string;
@@ -33,6 +35,27 @@ export const useBookViewModel = () => {
       setBookDetails(null);
     }
     setIsDetailsModalOpen(true);
+  };
+
+  const handleEditBook = (id: number) => {
+    const book = getBook(id);
+    if (book) {
+      setBookToEdit(book);
+      setIsEditModalOpen(true);
+    }
+  };
+
+  const handleUpdateBook = (data: {
+    name: string;
+    authorId: number;
+    pages: string;
+  }) => {
+    if (bookToEdit) {
+      const updatedBook = { ...bookToEdit, ...data };
+      saveBook(updatedBook);
+      setBooks(books.map((b) => (b.id === updatedBook.id ? updatedBook : b)));
+      setIsEditModalOpen(false);
+    }
   };
 
   const handleDelete = (id: number) => {
@@ -77,5 +100,10 @@ export const useBookViewModel = () => {
     setToast,
     isConfirmationModalOpen,
     setIsConfirmationModalOpen,
+    bookToEdit,
+    isEditModalOpen,
+    setIsEditModalOpen,
+    handleEditBook,
+    handleUpdateBook,
   };
 };

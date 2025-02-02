@@ -13,6 +13,14 @@ export const saveBook = (book: Book): void => {
   localStorage.setItem(BOOK_KEY, JSON.stringify(books));
 };
 
+export const updateBook = (updatedBook: Book): void => {
+  const books = getBooks();
+  const updatedBooks = books.map((book) =>
+    book.id === updatedBook.id ? updatedBook : book
+  );
+  localStorage.setItem(BOOK_KEY, JSON.stringify(updatedBooks));
+};
+
 export const deleteBook = (id: string): void => {
   const books = getBooks().filter((book) => book.id.toString() !== id);
   localStorage.setItem(BOOK_KEY, JSON.stringify(books));

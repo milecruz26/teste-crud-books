@@ -4,6 +4,7 @@ import { useBookViewModel } from "../../viewmodels/BookViewModel";
 import { BooksDetails } from "../../components/books/BookDetails/BooksDetails";
 import styles from "./BookView.module.css";
 import { BooksForm } from "../../components/books/BookForm/BooksForm";
+import { BookEdit } from "../../components/books/BookEdit/BookEdit";
 
 export const BookView = () => {
   const {
@@ -21,16 +22,21 @@ export const BookView = () => {
     setIsDetailsModalOpen,
     setToast,
     setIsConfirmationModalOpen,
+    bookToEdit,
+    isEditModalOpen,
+    setIsEditModalOpen,
+    handleEditBook,
+    handleUpdateBook,
   } = useBookViewModel();
 
   const handleAddBook = (data: {
-    title: string;
+    name: string;
     authorId: number;
     pages: string;
   }) => {
     addBook({
       id: Date.now(),
-      name: data.title,
+      name: data.name,
       author_id: data.authorId,
       pages: data.pages,
     });
@@ -45,7 +51,7 @@ export const BookView = () => {
         hasButton={true}
         trigger={<button>Adicionar Livro</button>}
       >
-        <BooksForm onSubmit={handleAddBook} />
+        <BooksForm onSubmit={handleAddBook} button="Adicionar Livro" />
       </Modal>
       <BooksList
         books={books}
@@ -56,6 +62,7 @@ export const BookView = () => {
         setToast={setToast}
         isConfirmationModalOpen={isConfirmationModalOpen}
         setIsConfirmationModalOpen={setIsConfirmationModalOpen}
+        onEdit={handleEditBook}
       />
       <Modal
         title="Detalhes do Livro"
@@ -64,6 +71,12 @@ export const BookView = () => {
       >
         {bookDetails && <BooksDetails book={bookDetails} />}
       </Modal>
+      <BookEdit
+        book={bookToEdit}
+        isOpen={isEditModalOpen}
+        onOpenChange={setIsEditModalOpen}
+        onSubmit={handleUpdateBook}
+      />
     </div>
   );
 };

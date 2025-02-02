@@ -7,6 +7,7 @@ import { TableBase } from "../../ui/TableBase/TableBase";
 interface BooksListProps {
   books: Book[];
   onDelete: (id: number) => void;
+  onEdit: (id: number) => void;
   onBookDetails: (id: number) => void;
   isConfirmationModalOpen: boolean;
   setIsConfirmationModalOpen: (open: boolean) => void;
@@ -20,6 +21,7 @@ interface BooksListProps {
 export const BooksList: React.FC<BooksListProps> = ({
   books,
   onDelete,
+  onEdit,
   onBookDetails,
   toast,
   setToast,
@@ -42,6 +44,7 @@ export const BooksList: React.FC<BooksListProps> = ({
         columns={columns}
         onDelete={onDelete}
         onItemDetails={onBookDetails}
+        onEdit={onEdit}
       />
       <Alert
         isOpen={isConfirmationModalOpen}
