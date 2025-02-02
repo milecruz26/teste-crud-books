@@ -42,7 +42,7 @@ export const AuthorList: React.FC<AuthorListProps> = ({
         data={authors}
         columns={columns}
         onDelete={onDelete}
-        onAuthorDatails={onAuthorDetails}
+        onItemDetails={onAuthorDetails}
       />
       <Alert
         isOpen={isConfirmationModalOpen}

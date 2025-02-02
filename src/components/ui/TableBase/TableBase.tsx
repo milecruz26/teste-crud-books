@@ -11,14 +11,14 @@ interface TableBaseProps<T> {
   data: T[];
   columns: Column<T>[];
   onDelete?: (id: number) => void;
-  onAuthorDatails?: (id: number) => void;
+  onItemDetails?: (id: number) => void;
 }
 
 export const TableBase = <T extends { id: number }>({
   data,
   columns,
   onDelete,
-  onAuthorDatails,
+  onItemDetails,
 }: TableBaseProps<T>) => {
   return (
     <table className={styles.table}>
@@ -36,7 +36,7 @@ export const TableBase = <T extends { id: number }>({
             {columns.map((column, index) => (
               <td
                 key={index}
-                onClick={() => onAuthorDatails && onAuthorDatails(row.id)}
+                onClick={() => onItemDetails && onItemDetails(row.id)}
               >
                 {typeof column.accessor === "function"
                   ? column.accessor(row)

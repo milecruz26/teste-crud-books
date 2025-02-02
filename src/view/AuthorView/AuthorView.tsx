@@ -29,7 +29,7 @@ const AuthorView: React.FC = () => {
   };
 
   return (
-    <div className={styles.autorView}>
+    <div className={styles.authorView}>
       <h1>Autores</h1>
       <Modal
         title="Adicionar Autor"
