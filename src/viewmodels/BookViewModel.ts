@@ -6,7 +6,6 @@ import {
   getBook,
   deleteBook,
 } from "../services/BookServices";
-import { getAuthors } from "../services/AuthorServices";
 
 export const useBookViewModel = () => {
   const [books, setBooks] = useState<Book[]>(getBooks());
@@ -21,8 +20,6 @@ export const useBookViewModel = () => {
     message: string;
   } | null>(null);
 
-  getAuthors();
-
   const addBook = (book: Book) => {
     saveBook(book);
     setBooks([...books, book]);
@@ -32,7 +29,6 @@ export const useBookViewModel = () => {
     const book = getBook(id);
     if (book) {
       setBookDetails(book);
-      console.log(book);
     } else {
       setBookDetails(null);
     }
@@ -56,29 +52,30 @@ export const useBookViewModel = () => {
       setBookToDelete(null);
     }
   };
+  const handleOpenModalDeleteBook = (openModalDeleteBook: boolean) => {
+    setOpenModalDeleteBook(openModalDeleteBook);
+  };
 
   const handleOpenModalAddBook = (openModalAddBook: boolean) => {
     setOpenModalAddBook(openModalAddBook);
-  };
-
-  const handleOpenModalDeleteBook = (openModalDeleteBook: boolean) => {
-    setOpenModalDeleteBook(openModalDeleteBook);
   };
 
   return {
     books,
     addBook,
     openModalAddBook,
-    getBookById,
     handleOpenModalAddBook,
     handleDelete,
     handleConfirmDelete,
     openModalDeleteBook,
     handleOpenModalDeleteBook,
     bookDetails,
+    getBookById,
     isDetailsModalOpen,
     setIsDetailsModalOpen,
-    isConfirmationModalOpen,
     toast,
+    setToast,
+    isConfirmationModalOpen,
+    setIsConfirmationModalOpen,
   };
 };

@@ -41,7 +41,7 @@ export const BooksList: React.FC<BooksListProps> = ({
         data={books}
         columns={columns}
         onDelete={onDelete}
-        onBookDetails={onBookDetails}
+        onItemDetails={onBookDetails}
       />
       <Alert
         isOpen={isConfirmationModalOpen}

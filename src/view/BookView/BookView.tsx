@@ -1,4 +1,3 @@
-import React from "react";
 import { BooksList } from "../../components/books/BookList/BooksList";
 import { Modal } from "../../components/ui/Modal/Modal";
 import { useBookViewModel } from "../../viewmodels/BookViewModel";
@@ -10,18 +9,18 @@ export const BookView = () => {
   const {
     addBook,
     books,
-    // isConfirmationModalOpen,
-    // setIsConfirmationModalOpen,
-    // handleDelete,
-    // handleConfirmDelete,
-    // toast,
-    // setToast,
-    // openModalAddBook,
-    // handleOpenModalAddBook,
-    // getBookById,
-    // bookDetails,
-    // isDetailsModalOpen,
-    // setIsDetailsModalOpen,
+    isConfirmationModalOpen,
+    handleDelete,
+    handleConfirmDelete,
+    toast,
+    openModalAddBook,
+    handleOpenModalAddBook,
+    getBookById,
+    bookDetails,
+    isDetailsModalOpen,
+    setIsDetailsModalOpen,
+    setToast,
+    setIsConfirmationModalOpen,
   } = useBookViewModel();
 
   const handleAddBook = (data: {
@@ -39,17 +38,32 @@ export const BookView = () => {
   return (
     <div className={styles.bookView}>
       <h1>Livros</h1>
-      <BooksForm onSubmit={handleAddBook} />
+      <Modal
+        title="Adicionar Livro"
+        isOpen={openModalAddBook}
+        onOpenChange={() => handleOpenModalAddBook(!openModalAddBook)}
+        hasButton={true}
+        trigger={<button>Adicionar Livro</button>}
+      >
+        <BooksForm onSubmit={handleAddBook} />
+      </Modal>
       <BooksList
         books={books}
-        onDelete={() => {}}
-        onBookDetails={() => {}}
-        isConfirmationModalOpen={false}
-        setIsConfirmationModalOpen={() => {}}
-        onConfirmDelete={() => {}}
-        toast={null}
-        setToast={() => {}}
+        onDelete={handleDelete}
+        onBookDetails={getBookById}
+        onConfirmDelete={handleConfirmDelete}
+        toast={toast}
+        setToast={setToast}
+        isConfirmationModalOpen={isConfirmationModalOpen}
+        setIsConfirmationModalOpen={setIsConfirmationModalOpen}
       />
+      <Modal
+        title="Detalhes do Livro"
+        isOpen={isDetailsModalOpen}
+        onOpenChange={setIsDetailsModalOpen}
+      >
+        {bookDetails && <BooksDetails book={bookDetails} />}
+      </Modal>
     </div>
   );
 };
