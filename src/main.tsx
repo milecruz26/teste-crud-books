@@ -4,7 +4,7 @@ import "./assets/global.css";
 import App from "./App.tsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import AuthorView from "./view/AuthorView/AuthorView.tsx";
-import { BookView } from "./view/BookView.tsx";
+import { BookView } from "./view/BookView/BookView.tsx";
 
 const router = createBrowserRouter([
   {
