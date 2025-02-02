@@ -5,6 +5,7 @@ import {
   getAuthor,
   saveAuthor,
   deleteAuthor,
+  updateAuthor,
 } from "../services/AuthorServices";
 
 export const useAuthorViewModel = () => {
@@ -15,6 +16,8 @@ export const useAuthorViewModel = () => {
   const [openModalDeleteAuthor, setOpenModalDeleteAuthor] = useState(false);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const [authorToDelete, setAuthorToDelete] = useState<number | null>(null);
+  const [authorToEdit, setAuthorToEdit] = useState<Author | null>(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [toast, setToast] = useState<{
     type: "success" | "error";
     message: string;
@@ -34,6 +37,23 @@ export const useAuthorViewModel = () => {
       setAuthorDetails(null);
     }
     setIsDetailsModalOpen(true);
+  };
+  const handleEditAuthor = (id: number) => {
+    const author = getAuthor(id);
+    if (author) {
+      setAuthorToEdit(author);
+      setIsEditModalOpen(true);
+    }
+  };
+  const handleUpdateAuthor = (data: { name: string; email?: string }) => {
+    if (authorToEdit) {
+      const updatedAuthor = { ...authorToEdit, ...data };
+      updateAuthor(updatedAuthor);
+      setAuthors(
+        authors.map((a) => (a.id === updatedAuthor.id ? updatedAuthor : a))
+      );
+      setIsEditModalOpen(false);
+    }
   };
 
   const handleDelete = (id: number) => {
@@ -79,5 +99,10 @@ export const useAuthorViewModel = () => {
     setToast,
     isConfirmationModalOpen,
     setIsConfirmationModalOpen,
+    authorToEdit,
+    isEditModalOpen,
+    setIsEditModalOpen,
+    handleEditAuthor,
+    handleUpdateAuthor,
   };
 };

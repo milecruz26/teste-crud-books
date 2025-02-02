@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./TableBase.module.css";
-import { TrashIcon } from "@radix-ui/react-icons";
+import { TrashIcon, Pencil1Icon } from "@radix-ui/react-icons";
 
 interface Column<T> {
   header: string;
@@ -12,6 +12,7 @@ interface TableBaseProps<T> {
   columns: Column<T>[];
   onDelete?: (id: number) => void;
   onItemDetails?: (id: number) => void;
+  onEdit?: (id: number) => void;
 }
 
 export const TableBase = <T extends { id: number }>({
@@ -19,6 +20,7 @@ export const TableBase = <T extends { id: number }>({
   columns,
   onDelete,
   onItemDetails,
+  onEdit,
 }: TableBaseProps<T>) => {
   return (
     <table className={styles.table}>
@@ -43,14 +45,24 @@ export const TableBase = <T extends { id: number }>({
                   : (row[column.accessor] as React.ReactNode)}
               </td>
             ))}
-            {onDelete && (
-              <td>
-                <button
-                  onClick={() => onDelete(row.id)}
-                  className={styles.deleteButton}
-                >
-                  <TrashIcon />
-                </button>
+            {(onDelete || onEdit) && (
+              <td className={styles.itensActions}>
+                {onEdit && (
+                  <button
+                    onClick={() => onEdit(row.id)}
+                    className={styles.editButton}
+                  >
+                    <Pencil1Icon />
+                  </button>
+                )}
+                {onDelete && (
+                  <button
+                    onClick={() => onDelete(row.id)}
+                    className={styles.deleteButton}
+                  >
+                    <TrashIcon />
+                  </button>
+                )}
               </td>
             )}
           </tr>

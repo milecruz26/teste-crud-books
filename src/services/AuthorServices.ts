@@ -13,6 +13,14 @@ export const saveAuthor = (author: Author): void => {
   localStorage.setItem(AUTHOR_KEY, JSON.stringify(authors));
 };
 
+export const updateAuthor = (updatedAuthor: Author): void => {
+  const authors = getAuthors();
+  const updatedAuthors = authors.map((author) =>
+    author.id === updatedAuthor.id ? updatedAuthor : author
+  );
+  localStorage.setItem(AUTHOR_KEY, JSON.stringify(updatedAuthors));
+};
+
 export const deleteAuthor = (id: string): void => {
   const authors = getAuthors().filter((author) => author.id.toString() !== id);
   localStorage.setItem(AUTHOR_KEY, JSON.stringify(authors));

@@ -22,7 +22,21 @@
 }
 
 .action {
-  width: 16px;
+  width: 6rem;
+}
+
+.itensActions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.editButton {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.4rem 0.2rem 0.4rem;
+  border-radius: 1rem;
+  cursor: pointer;
 }
 
 .deleteButton {

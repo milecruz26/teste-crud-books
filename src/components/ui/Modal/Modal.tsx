@@ -22,7 +22,11 @@ export const Modal = ({
 }: ModalProps) => {
   return (
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
-      {hasButton && <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>}
+      {hasButton && (
+        <Dialog.Trigger asChild className={styles.trigger}>
+          {trigger}
+        </Dialog.Trigger>
+      )}
       <Dialog.Portal>
         <Dialog.Overlay className={styles.overlay} />
         <Dialog.Content className={styles.content}>

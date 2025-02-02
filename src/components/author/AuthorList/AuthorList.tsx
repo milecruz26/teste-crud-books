@@ -7,6 +7,7 @@ import Alert from "../../ui/Alert/Alert";
 interface AuthorListProps {
   authors: Author[];
   onDelete: (id: number) => void;
+  onEdit: (id: number) => void;
   onAuthorDetails: (id: number) => void;
   isConfirmationModalOpen: boolean;
   setIsConfirmationModalOpen: (open: boolean) => void;
@@ -20,6 +21,7 @@ interface AuthorListProps {
 export const AuthorList: React.FC<AuthorListProps> = ({
   authors,
   onDelete,
+  onEdit,
   onAuthorDetails,
   toast,
   setToast,
@@ -43,6 +45,7 @@ export const AuthorList: React.FC<AuthorListProps> = ({
         columns={columns}
         onDelete={onDelete}
         onItemDetails={onAuthorDetails}
+        onEdit={onEdit}
       />
       <Alert
         isOpen={isConfirmationModalOpen}

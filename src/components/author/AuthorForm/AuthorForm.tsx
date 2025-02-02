@@ -6,9 +6,13 @@ import styles from "./AuthorForm.module.css";
 
 interface AuthorFormProps {
   onSubmit: (data: AuthorFormData) => void;
+  defaultValues?: { name: string; email?: string };
 }
 
-export const AuthorForm: React.FC<AuthorFormProps> = ({ onSubmit }) => {
+export const AuthorForm: React.FC<AuthorFormProps> = ({
+  onSubmit,
+  defaultValues,
+}) => {
   const {
     register,
     handleSubmit,
@@ -16,6 +20,7 @@ export const AuthorForm: React.FC<AuthorFormProps> = ({ onSubmit }) => {
     reset,
   } = useForm<AuthorFormData>({
     resolver: zodResolver(authorSchema),
+    defaultValues,
   });
 
   const handleFormSubmit: SubmitHandler<AuthorFormData> = (data) => {
@@ -52,7 +57,7 @@ export const AuthorForm: React.FC<AuthorFormProps> = ({ onSubmit }) => {
       </div>
 
       <button type="submit" className={styles.submitButton}>
-        Adicionar Autor
+        Editar Autor
       </button>
     </form>
   );
