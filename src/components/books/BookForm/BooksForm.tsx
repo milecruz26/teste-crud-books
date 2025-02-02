@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { bookSchema, BookFormData } from "../../../schemas/bookSchema";
 import styles from "./BooksForm.module.css";
+import { getAuthors } from "../../../services/AuthorServices";
 
 interface BooksFormProps {
   onSubmit: (data: BookFormData) => void;
@@ -17,10 +18,12 @@ export const BooksForm: React.FC<BooksFormProps> = ({ onSubmit }) => {
   } = useForm<BookFormData>({
     resolver: zodResolver(bookSchema),
   });
+  const authorsList = getAuthors();
   const handleFormSubmit: SubmitHandler<BookFormData> = (data) => {
     onSubmit(data);
     reset();
   };
+
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className={styles.form}>
       <div className={styles.formGroup}>
@@ -37,12 +40,19 @@ export const BooksForm: React.FC<BooksFormProps> = ({ onSubmit }) => {
       </div>
       <div className={styles.formGroup}>
         <label htmlFor="authorId">Autor</label>
-        <input
+        <select
           id="authorId"
-          type="text"
-          {...register("authorId")}
+          {...register("authorId", {
+            setValueAs: (value) => Number(value),
+          })}
           className={errors.authorId ? styles.error : ""}
-        />
+        >
+          {authorsList.map((author) => (
+            <option key={author.id} value={author.id}>
+              {author.name}
+            </option>
+          ))}
+        </select>
         {errors.authorId && (
           <span className={styles.errorMessage}>{errors.authorId.message}</span>
         )}
@@ -51,7 +61,7 @@ export const BooksForm: React.FC<BooksFormProps> = ({ onSubmit }) => {
         <label htmlFor="pages">Páginas</label>
         <input
           id="pages"
-          type="number"
+          type="string"
           {...register("pages")}
           className={errors.pages ? styles.error : ""}
         />

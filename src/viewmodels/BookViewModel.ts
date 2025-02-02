@@ -6,6 +6,7 @@ import {
   getBook,
   deleteBook,
 } from "../services/BookServices";
+import { getAuthors } from "../services/AuthorServices";
 
 export const useBookViewModel = () => {
   const [books, setBooks] = useState<Book[]>(getBooks());
@@ -19,6 +20,8 @@ export const useBookViewModel = () => {
     type: "success" | "error";
     message: string;
   } | null>(null);
+
+  getAuthors();
 
   const addBook = (book: Book) => {
     saveBook(book);
