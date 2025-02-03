@@ -1,10 +1,9 @@
 import { BooksList } from "../../components/books/BookList/BooksList";
-import { Modal } from "../../components/ui/Modal/Modal";
 import { useBookViewModel } from "../../viewmodels/BookViewModel";
 import { BooksDetails } from "../../components/books/BookDetails/BooksDetails";
 import styles from "./BookView.module.css";
-import { BooksForm } from "../../components/books/BookForm/BooksForm";
 import { BookEdit } from "../../components/books/BookEdit/BookEdit";
+import { BookCreate } from "../../components/books/BookCreate/BookCreate";
 
 export const BookView = () => {
   const {
@@ -44,15 +43,12 @@ export const BookView = () => {
   return (
     <div className={styles.bookView}>
       <h1>Livros</h1>
-      <Modal
-        title="Adicionar Livro"
+      <BookCreate
         isOpen={openModalAddBook}
         onOpenChange={() => handleOpenModalAddBook(!openModalAddBook)}
-        hasButton={true}
-        trigger={<button>Adicionar Livro</button>}
-      >
-        <BooksForm onSubmit={handleAddBook} button="Adicionar Livro" />
-      </Modal>
+        onSubmit={handleAddBook}
+      />
+
       <BooksList
         books={books}
         onDelete={handleDelete}
@@ -64,19 +60,20 @@ export const BookView = () => {
         setIsConfirmationModalOpen={setIsConfirmationModalOpen}
         onEdit={handleEditBook}
       />
-      <Modal
-        title="Detalhes do Livro"
-        isOpen={isDetailsModalOpen}
-        onOpenChange={setIsDetailsModalOpen}
-      >
-        {bookDetails && <BooksDetails book={bookDetails} />}
-      </Modal>
       <BookEdit
         book={bookToEdit}
         isOpen={isEditModalOpen}
         onOpenChange={setIsEditModalOpen}
         onSubmit={handleUpdateBook}
       />
+
+      {bookDetails && (
+        <BooksDetails
+          book={bookDetails}
+          isOpen={isDetailsModalOpen}
+          onOpenChange={setIsDetailsModalOpen}
+        />
+      )}
     </div>
   );
 };
