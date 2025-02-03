@@ -1,0 +1,53 @@
+.table {
+  min-width: 15rem;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+}
+
+.table th,
+.table td {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.table td {
+  cursor: pointer;
+}
+
+.table th {
+  background-color: #6a04b9;
+  font-weight: bold;
+  color: #fff;
+}
+
+.action {
+  width: 6rem;
+}
+
+.itensActions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.editButton {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.4rem 0.2rem 0.4rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.deleteButton {
+  background-color: #ff4d4d;
+  color: rgb(255, 255, 255);
+  border: none;
+  padding: 0.4rem 0.4rem 0.2rem 0.4rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  background-color: #ff1a1a;
+}
