@@ -10,7 +10,7 @@ interface BookEditModalProps {
   onSubmit: (data: {
     name: string;
     authorId: number;
-    pages?: string | undefined;
+    pages?: number | undefined;
   }) => void;
 }
 
@@ -30,7 +30,7 @@ export const BookEdit: React.FC<BookEditModalProps> = ({
             ? {
                 name: book.name,
                 authorId: book.author_id,
-                pages: book.pages || "",
+                pages: book.pages,
               }
             : undefined
         }

@@ -2,9 +2,7 @@
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
-  /* border: 1px solid #ddd; */
   border-radius: 5px;
-  /* background-color: #f9f9f9; */
 }
 
 .formGroup {
@@ -18,12 +16,25 @@
   color: #ffffff;
 }
 
-.formGroup input {
+.formGroup input,
+.formGroup select,
+.formGroup option {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 .error {

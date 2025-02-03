@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { bookSchema, BookFormData } from "../../../schemas/bookSchema";
@@ -7,7 +7,7 @@ import { getAuthors } from "../../../services/AuthorServices";
 
 interface BooksFormProps {
   onSubmit: (data: BookFormData) => void;
-  defaultValues?: { name: string; authorId: number; pages: string };
+  defaultValues?: { name: string; authorId: number; pages?: number };
   button: string;
 }
 
@@ -25,9 +25,7 @@ export const BooksForm: React.FC<BooksFormProps> = ({
     resolver: zodResolver(bookSchema),
     defaultValues,
   });
-  useEffect(() => {
-    reset(defaultValues);
-  }, [defaultValues, reset]);
+
   const authorsList = getAuthors();
   const handleFormSubmit: SubmitHandler<BookFormData> = (data) => {
     onSubmit(data);
@@ -53,10 +51,13 @@ export const BooksForm: React.FC<BooksFormProps> = ({
         <select
           id="authorId"
           {...register("authorId", {
-            setValueAs: (value) => Number(value),
+            setValueAs: (value) => (value ? Number(value) : undefined),
           })}
           className={errors.authorId ? styles.error : ""}
         >
+          <option value="" disabled selected>
+            Selecione o autor
+          </option>
           {authorsList.map((author) => (
             <option key={author.id} value={author.id}>
               {author.name}
@@ -71,8 +72,10 @@ export const BooksForm: React.FC<BooksFormProps> = ({
         <label htmlFor="pages">Páginas</label>
         <input
           id="pages"
-          type="string"
-          {...register("pages")}
+          type="number"
+          {...register("pages", {
+            setValueAs: (value) => (value === "" ? undefined : Number(value)),
+          })}
           className={errors.pages ? styles.error : ""}
         />
         {errors.pages && (
