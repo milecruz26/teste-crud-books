@@ -36,6 +36,7 @@ export const useBookViewModel = () => {
     author_id: number;
     pages?: number;
   }) => {
+    setToast({ type: "success", message: "Livro adicionado com sucesso!" });
     addBook({
       ...data,
       id: Date.now(),
@@ -75,6 +76,7 @@ export const useBookViewModel = () => {
         author_id: data.author_id,
         pages: data.pages,
       };
+      setToast({ type: "success", message: "Livro editado com sucesso!" });
       updateBook(updatedBook);
       setBooks(books.map((b) => (b.id === updatedBook.id ? updatedBook : b)));
       setIsEditModalOpen(false);

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { bookSchema, BookFormData } from "../../../schemas/bookSchema";
@@ -25,10 +25,6 @@ export const BooksForm: React.FC<BooksFormProps> = ({
     resolver: zodResolver(bookSchema),
     defaultValues,
   });
-
-  useEffect(() => {
-    reset(defaultValues);
-  }, [defaultValues, reset]);
 
   const authorsList = getAuthors();
   const handleFormSubmit: SubmitHandler<BookFormData> = (data) => {
@@ -57,9 +53,6 @@ export const BooksForm: React.FC<BooksFormProps> = ({
           {...register("author_id", {
             setValueAs: (value) => (value ? Number(value) : undefined),
           })}
-          // {...register("author_id", {
-          //   setValueAs: (value) => (value ? Number(value) : undefined),
-          // })}
           className={errors.author_id ? styles.error : ""}
         >
           <option value="" disabled selected>
