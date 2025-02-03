@@ -51,7 +51,7 @@ export const useBookViewModel = () => {
   const handleUpdateBook = (data: {
     name: string;
     authorId: number;
-    pages?: string;
+    pages?: number;
   }) => {
     if (bookToEdit) {
       const updatedBook = { ...bookToEdit, ...data };
