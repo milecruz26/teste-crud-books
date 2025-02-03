@@ -3,6 +3,7 @@ import { Author } from "../../../models/Author";
 import { TableBase } from "../../ui/TableBase/TableBase";
 import Toast from "../../ui/Toast/Toast";
 import Alert from "../../ui/Alert/Alert";
+import styles from "./AuthorList.module.css";
 
 interface AuthorListProps {
   authors: Author[];
@@ -40,13 +41,17 @@ export const AuthorList: React.FC<AuthorListProps> = ({
           onClose={() => setToast(null)}
         />
       )}
-      <TableBase
-        data={authors}
-        columns={columns}
-        onDelete={onDelete}
-        onItemDetails={onAuthorDetails}
-        onEdit={onEdit}
-      />
+      {authors.length === 0 ? (
+        <div className={styles.emptyMessage}>Xiii! Não tem nenhum autor!</div>
+      ) : (
+        <TableBase
+          data={authors}
+          columns={columns}
+          onDelete={onDelete}
+          onItemDetails={onAuthorDetails}
+          onEdit={onEdit}
+        />
+      )}
       <Alert
         isOpen={isConfirmationModalOpen}
         onOpenChange={setIsConfirmationModalOpen}

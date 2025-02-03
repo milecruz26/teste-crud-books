@@ -6,6 +6,7 @@ import {
   getBook,
   deleteBook,
 } from "../services/BookServices";
+import { useAuthorViewModel } from "./AuthorViewModel";
 
 export const useBookViewModel = () => {
   const [books, setBooks] = useState<Book[]>(getBooks());
@@ -21,6 +22,8 @@ export const useBookViewModel = () => {
     type: "success" | "error";
     message: string;
   } | null>(null);
+
+  const { authors } = useAuthorViewModel();
 
   const addBook = (book: Book) => {
     saveBook(book);
@@ -80,7 +83,11 @@ export const useBookViewModel = () => {
   };
 
   const handleOpenModalAddBook = (openModalAddBook: boolean) => {
-    setOpenModalAddBook(openModalAddBook);
+    if (authors.length === 0) {
+      alert("Você precisa adicionar um autor primeiro!");
+    } else {
+      setOpenModalAddBook(openModalAddBook);
+    }
   };
 
   return {
