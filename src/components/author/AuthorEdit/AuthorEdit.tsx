@@ -23,6 +23,7 @@ export const AuthorEdit: React.FC<AuthorEditModalProps> = ({
         defaultValues={
           author ? { name: author.name, email: author.email } : undefined
         }
+        button="Editar Autor"
       />
     </Modal>
   );

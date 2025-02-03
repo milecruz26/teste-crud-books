@@ -7,11 +7,13 @@ import styles from "./AuthorForm.module.css";
 interface AuthorFormProps {
   onSubmit: (data: AuthorFormData) => void;
   defaultValues?: { name: string; email?: string };
+  button: string;
 }
 
 export const AuthorForm: React.FC<AuthorFormProps> = ({
   onSubmit,
   defaultValues,
+  button,
 }) => {
   const {
     register,
@@ -57,7 +59,7 @@ export const AuthorForm: React.FC<AuthorFormProps> = ({
       </div>
 
       <button type="submit" className={styles.submitButton}>
-        Editar Autor
+        {button}
       </button>
     </form>
   );

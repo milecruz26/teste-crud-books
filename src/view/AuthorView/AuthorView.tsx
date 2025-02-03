@@ -1,11 +1,10 @@
 import React from "react";
-import { AuthorForm } from "../../components/author/AuthorForm/AuthorForm";
 import { AuthorList } from "../../components/author/AuthorList/AuthorList";
-import { Modal } from "../../components/ui/Modal/Modal";
 import { useAuthorViewModel } from "../../viewmodels/AuthorViewModel";
 import styles from "./AuthorView.module.css";
 import AuthorDetails from "../../components/author/AuthorDetails/AuthorDetails";
 import { AuthorEdit } from "../../components/author/AuthorEdit/AuthorEdit";
+import { AuthorCreate } from "../../components/author/AuthorCreate/AuthorCreate";
 
 const AuthorView: React.FC = () => {
   const {
@@ -37,15 +36,11 @@ const AuthorView: React.FC = () => {
   return (
     <div className={styles.authorView}>
       <h1>Autores</h1>
-      <Modal
-        title="Adicionar Autor"
+      <AuthorCreate
         isOpen={openModalAddAuthor}
         onOpenChange={() => handleOpenModalAddAuthor(!openModalAddAuthor)}
-        hasButton={true}
-        trigger={<button>Adicionar Autor</button>}
-      >
-        <AuthorForm onSubmit={handleAddAuthor} />
-      </Modal>
+        onSubmit={handleAddAuthor}
+      />
       <AuthorList
         authors={authors}
         onDelete={handleDelete}
@@ -57,19 +52,21 @@ const AuthorView: React.FC = () => {
         onAuthorDetails={getAuthorById}
         onEdit={handleEditAuthor}
       />
-      <Modal
-        title="Detalhes do Autor"
-        isOpen={isDetailsModalOpen}
-        onOpenChange={setIsDetailsModalOpen}
-      >
-        {authorDetails && <AuthorDetails author={authorDetails} />}
-      </Modal>
+
       <AuthorEdit
         author={authorToEdit}
         isOpen={isEditModalOpen}
         onOpenChange={setIsEditModalOpen}
         onSubmit={handleUpdateAuthor}
       />
+
+      {authorDetails && (
+        <AuthorDetails
+          isOpen={isDetailsModalOpen}
+          onOpenChange={setIsDetailsModalOpen}
+          author={authorDetails}
+        />
+      )}
     </div>
   );
 };
