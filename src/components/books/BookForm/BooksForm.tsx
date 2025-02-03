@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { bookSchema, BookFormData } from "../../../schemas/bookSchema";
@@ -7,7 +7,7 @@ import { getAuthors } from "../../../services/AuthorServices";
 
 interface BooksFormProps {
   onSubmit: (data: BookFormData) => void;
-  defaultValues?: { name: string; authorId: number; pages?: number };
+  defaultValues?: { name: string; author_id: number; pages?: number };
   button: string;
 }
 
@@ -25,6 +25,10 @@ export const BooksForm: React.FC<BooksFormProps> = ({
     resolver: zodResolver(bookSchema),
     defaultValues,
   });
+
+  useEffect(() => {
+    reset(defaultValues);
+  }, [defaultValues, reset]);
 
   const authorsList = getAuthors();
   const handleFormSubmit: SubmitHandler<BookFormData> = (data) => {
@@ -47,13 +51,16 @@ export const BooksForm: React.FC<BooksFormProps> = ({
         )}
       </div>
       <div className={styles.formGroup}>
-        <label htmlFor="authorId">Autor</label>
+        <label htmlFor="author_id">Autor</label>
         <select
-          id="authorId"
-          {...register("authorId", {
+          id="author_id"
+          {...register("author_id", {
             setValueAs: (value) => (value ? Number(value) : undefined),
           })}
-          className={errors.authorId ? styles.error : ""}
+          // {...register("author_id", {
+          //   setValueAs: (value) => (value ? Number(value) : undefined),
+          // })}
+          className={errors.author_id ? styles.error : ""}
         >
           <option value="" disabled selected>
             Selecione o autor
@@ -64,8 +71,10 @@ export const BooksForm: React.FC<BooksFormProps> = ({
             </option>
           ))}
         </select>
-        {errors.authorId && (
-          <span className={styles.errorMessage}>{errors.authorId.message}</span>
+        {errors.author_id && (
+          <span className={styles.errorMessage}>
+            {errors.author_id.message}
+          </span>
         )}
       </div>
       <div className={styles.formGroup}>
@@ -74,7 +83,7 @@ export const BooksForm: React.FC<BooksFormProps> = ({
           id="pages"
           type="number"
           {...register("pages", {
-            setValueAs: (value) => (value === "" ? undefined : Number(value)),
+            setValueAs: (value) => (value === 0 ? undefined : Number(value)),
           })}
           className={errors.pages ? styles.error : ""}
         />
