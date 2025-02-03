@@ -5,6 +5,7 @@ import {
   saveBook,
   getBook,
   deleteBook,
+  updateBook,
 } from "../services/BookServices";
 import { useAuthorViewModel } from "./AuthorViewModel";
 
@@ -30,6 +31,21 @@ export const useBookViewModel = () => {
     setBooks([...books, book]);
   };
 
+  const handleAddBook = (data: {
+    name: string;
+    author_id: number;
+    pages?: number;
+  }) => {
+    setToast({ type: "success", message: "Livro adicionado com sucesso!" });
+    addBook({
+      ...data,
+      id: Date.now(),
+      name: data.name,
+      author_id: data.author_id,
+      pages: data.pages,
+    });
+  };
+
   const getBookById = (id: number) => {
     const book = getBook(id);
     if (book) {
@@ -50,12 +66,18 @@ export const useBookViewModel = () => {
 
   const handleUpdateBook = (data: {
     name: string;
-    authorId: number;
+    author_id: number;
     pages?: number;
   }) => {
     if (bookToEdit) {
-      const updatedBook = { ...bookToEdit, ...data };
-      saveBook(updatedBook);
+      const updatedBook = {
+        ...bookToEdit,
+        name: data.name,
+        author_id: data.author_id,
+        pages: data.pages,
+      };
+      setToast({ type: "success", message: "Livro editado com sucesso!" });
+      updateBook(updatedBook);
       setBooks(books.map((b) => (b.id === updatedBook.id ? updatedBook : b)));
       setIsEditModalOpen(false);
     }
@@ -112,5 +134,6 @@ export const useBookViewModel = () => {
     setIsEditModalOpen,
     handleEditBook,
     handleUpdateBook,
+    handleAddBook,
   };
 };

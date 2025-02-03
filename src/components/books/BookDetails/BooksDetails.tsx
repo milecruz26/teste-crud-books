@@ -18,6 +18,8 @@ export const BooksDetails: React.FC<BooksDetailsProps> = ({
 }) => {
   const authors = getAuthors();
   const author = authors.find((a) => a.id === book.author_id);
+
+  console.log(book.pages);
   return (
     <Modal
       title="Detalhes do Livro"
@@ -35,7 +37,7 @@ export const BooksDetails: React.FC<BooksDetailsProps> = ({
         </p>
         <p>
           <FileIcon className={styles.icon} /> <strong>Páginas:</strong>
-          {book.pages || 0}
+          {book.pages}
         </p>
       </div>
     </Modal>

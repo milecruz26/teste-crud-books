@@ -26,6 +26,7 @@ export const useAuthorViewModel = () => {
   const addAuthor = (author: Author) => {
     saveAuthor(author);
     setAuthors([...authors, author]);
+    setToast({ type: "success", message: "Autor adicionado com sucesso!" });
   };
 
   const getAuthorById = (id: number) => {
@@ -48,6 +49,7 @@ export const useAuthorViewModel = () => {
   const handleUpdateAuthor = (data: { name: string; email?: string }) => {
     if (authorToEdit) {
       const updatedAuthor = { ...authorToEdit, ...data };
+      setToast({ type: "success", message: "Autor editado com sucesso!" });
       updateAuthor(updatedAuthor);
       setAuthors(
         authors.map((a) => (a.id === updatedAuthor.id ? updatedAuthor : a))

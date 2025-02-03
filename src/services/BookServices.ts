@@ -18,6 +18,7 @@ export const updateBook = (updatedBook: Book): void => {
   const updatedBooks = books.map((book) =>
     book.id === updatedBook.id ? updatedBook : book
   );
+  console.log("updateBook service:", updatedBooks);
   localStorage.setItem(BOOK_KEY, JSON.stringify(updatedBooks));
 };
 

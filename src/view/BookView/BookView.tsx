@@ -7,7 +7,6 @@ import { BookCreate } from "../../components/books/BookCreate/BookCreate";
 
 export const BookView = () => {
   const {
-    addBook,
     books,
     isConfirmationModalOpen,
     handleDelete,
@@ -26,20 +25,9 @@ export const BookView = () => {
     setIsEditModalOpen,
     handleEditBook,
     handleUpdateBook,
+    handleAddBook,
   } = useBookViewModel();
 
-  const handleAddBook = (data: {
-    name: string;
-    authorId: number;
-    pages?: number;
-  }) => {
-    addBook({
-      id: Date.now(),
-      name: data.name,
-      author_id: data.authorId,
-      pages: data.pages,
-    });
-  };
   return (
     <div className={styles.bookView}>
       <h1>Livros</h1>

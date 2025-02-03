@@ -2,16 +2,14 @@ import React from "react";
 import { Modal } from "../../ui/Modal/Modal";
 import { BooksForm } from "../BookForm/BooksForm";
 import { Book } from "../../../models/Book";
+import { BookFormData } from "../../../schemas/bookSchema";
 
 interface BookEditModalProps {
   book: Book | null;
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
-  onSubmit: (data: {
-    name: string;
-    authorId: number;
-    pages?: number | undefined;
-  }) => void;
+  onSubmit: (data: BookFormData) => void;
+  // onSubmit: (data: { name: string; author_id: number; pages?: number }) => void;
 }
 
 export const BookEdit: React.FC<BookEditModalProps> = ({
@@ -29,7 +27,7 @@ export const BookEdit: React.FC<BookEditModalProps> = ({
           book
             ? {
                 name: book.name,
-                authorId: book.author_id,
+                author_id: book.author_id,
                 pages: book.pages,
               }
             : undefined
