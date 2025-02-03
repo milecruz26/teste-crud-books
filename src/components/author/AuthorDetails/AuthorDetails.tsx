@@ -23,12 +23,13 @@ const AuthorDetails: React.FC<AuthorDetailsProps> = ({
     >
       <div className={styles.detailsContainer}>
         <p>
-          <PersonIcon className={styles.icon} /> <strong>Nome:</strong>{" "}
+          <PersonIcon className={styles.icon} /> <strong>Nome:</strong>
           {author.name}
         </p>
         <p>
-          <EnvelopeClosedIcon className={styles.icon} /> <strong>Email:</strong>{" "}
-          {author.email || "N/A"}
+          <EnvelopeClosedIcon className={styles.icon} />{" "}
+          <strong>E-mail:</strong>
+          {author.email || "Sem e-mail"}
         </p>
       </div>
     </Modal>

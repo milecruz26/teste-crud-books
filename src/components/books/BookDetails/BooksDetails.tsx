@@ -31,11 +31,11 @@ export const BooksDetails: React.FC<BooksDetailsProps> = ({
         </p>
         <p>
           <PersonIcon className={styles.icon} /> <strong>Author:</strong>
-          {author?.name || "N/A"}
+          {author?.name}
         </p>
         <p>
           <FileIcon className={styles.icon} /> <strong>Páginas:</strong>
-          {book.pages || "N/A"}
+          {book.pages || 0}
         </p>
       </div>
     </Modal>

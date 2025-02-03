@@ -22,7 +22,7 @@ export const AuthorForm: React.FC<AuthorFormProps> = ({
     reset,
   } = useForm<AuthorFormData>({
     resolver: zodResolver(authorSchema),
-    defaultValues,
+    defaultValues: defaultValues || { name: "", email: undefined },
   });
 
   const handleFormSubmit: SubmitHandler<AuthorFormData> = (data) => {
@@ -50,7 +50,9 @@ export const AuthorForm: React.FC<AuthorFormProps> = ({
         <input
           id="email"
           type="email"
-          {...register("email")}
+          {...register("email", {
+            setValueAs: (value) => (value === "" ? undefined : value),
+          })}
           className={errors.email ? styles.error : ""}
         />
         {errors.email && (
