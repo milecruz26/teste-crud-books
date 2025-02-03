@@ -111,6 +111,13 @@ Para ver todas as dependências, consulte o arquivo `package.json`.
 
 ## 🎨 Imagens do Produto
 Aqui estão algumas capturas de tela da aplicação:
+![](./8.jpeg)
+![](./7.jpeg)
+![](./6.jpeg)
+![](./5.jpeg)
+![](./4.jpeg)
+![](./3.jpeg)
+![](./2.jpeg)
 
 
 
