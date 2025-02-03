@@ -31,7 +31,7 @@ export const BookView = () => {
   const handleAddBook = (data: {
     name: string;
     authorId: number;
-    pages?: string;
+    pages?: number;
   }) => {
     addBook({
       id: Date.now(),
